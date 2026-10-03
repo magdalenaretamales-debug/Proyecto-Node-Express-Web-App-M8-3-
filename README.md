@@ -2464,6 +2464,6 @@ npm start
 
 **Magdalena Retamales**
 
-Proyecto académico desarrollado como parte del proceso de formación en desarrollo de aplicaciones Full Stack JavaScript.
+Proyecto académico
 
 **Chile — 2026**
