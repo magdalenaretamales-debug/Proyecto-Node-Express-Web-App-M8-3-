@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mi Mochila | Inicio de sesión</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <main class="login">
+
+        <section class="login-tarjeta">
+
+            <div class="login-logo">
+                🎒
+            </div>
+
+            <h1>Mi Mochila</h1>
+
+            <p class="login-subtitulo">
+                ¡Hola! 👋
+                <br>
+                Ingresa para entrar a tu mochila.
+            </p>
+
+            <form id="formLogin">
+
+                <label for="loginEmail">
+                    📧 Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Escribe tu correo"
+                    required
+                >
+
+                <label for="loginPassword">
+                    🔑 Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Escribe tu contraseña"
+                    required
+                >
+
+                <button type="submit">
+                    🚀 Entrar a mi mochila
+                </button>
+
+            </form>
+
+            <div id="resultadoLogin"></div>
+
+            <p class="login-enlace">
+                <a href="recuperar.html">
+                    ¿Olvidaste tu contraseña?
+                </a>
+            </p>
+
+            <div class="login-separador">
+                <span>¿Es tu primera vez?</span>
+            </div>
+
+            <a
+                href="registro.html"
+                class="btn-crear-cuenta"
+            >
+                ✨ Crear mi cuenta
+            </a>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        document
+            .getElementById("formLogin")
+            .addEventListener(
+                "submit",
+                async (event) => {
+
+                    event.preventDefault();
+
+                    const email =
+                        document
+                            .getElementById("loginEmail")
+                            .value
+                            .trim();
+
+                    const password =
+                        document
+                            .getElementById("loginPassword")
+                            .value;
+
+                    const resultado =
+                        document.getElementById(
+                            "resultadoLogin"
+                        );
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                "/login",
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify({
+                                            email,
+                                            password
+                                        })
+                                }
+                            );
+
+                        const data =
+                            await response.json();
+
+                        if (response.ok) {
+
+                            localStorage.setItem(
+                                "token",
+                                data.data.token
+                            );
+
+                            localStorage.setItem(
+                                "usuario",
+                                JSON.stringify(
+                                    data.data.usuario
+                                )
+                            );
+
+                            window.location.href =
+                                "index.html";
+
+                        } else {
+
+                            resultado.innerHTML = `
+                                <p>
+                                    ❌ ${data.message || "Credenciales incorrectas."}
+                                </p>
+                            `;
+
+                        }
+
+                    } catch (error) {
+
+                        console.error(error);
+
+                        resultado.innerHTML = `
+                            <p>
+                                ❌ No se pudo conectar con el servidor.
+                            </p>
+                        `;
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

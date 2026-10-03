@@ -1,0 +1,1380 @@
+
+/* ==============================
+   CONFIGURACIÓN GENERAL
+   ============================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(255, 105, 180, 0.55),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(139, 92, 246, 0.55),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 70% 75%,
+            rgba(59, 130, 246, 0.55),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(34, 197, 94, 0.45),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(250, 204, 21, 0.45),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(249, 115, 22, 0.45),
+            transparent 35%
+        ),
+        #fefefe;
+
+    color: #243047;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+
+/* ==============================
+   CONTENEDOR PRINCIPAL
+   ============================== */
+
+.contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ==============================
+   ENCABEZADO MI MOCHILA
+   ============================== */
+
+.encabezado {
+    background: linear-gradient(
+        135deg,
+        #fff7ed,
+        #fdf2f8,
+        #eef2ff
+    );
+
+    border: 1px solid #e8eaf2;
+    border-radius: 28px;
+
+    padding: 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(36, 48, 71, 0.06);
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.icono-mochila {
+    width: 68px;
+    height: 68px;
+
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 36px;
+
+    box-shadow:
+        0 8px 24px rgba(36, 48, 71, 0.08);
+}
+
+.encabezado h1 {
+    font-size: 32px;
+    font-weight: 800;
+
+    color: #243047;
+
+    margin-bottom: 5px;
+}
+
+.encabezado p {
+    color: #68738a;
+    font-size: 15px;
+}
+
+
+
+
+/* ==============================
+   SALUDO
+   ============================== */
+
+.saludo {
+    margin: 25px 0 18px;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    color: #243047;
+}
+
+
+/* ==============================
+   CONTENIDO PRINCIPAL
+   ============================== */
+
+.contenido {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.45fr)
+        minmax(280px, 0.8fr);
+
+    gap: 20px;
+}
+
+
+/* ==============================
+   TARJETAS
+   ============================== */
+
+.tarjeta {
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid #e8eaf2;
+
+    border-radius: 22px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 8px 24px rgba(36, 48, 71, 0.06);
+}
+
+.tarjeta + .tarjeta {
+    margin-top: 18px;
+}
+
+.tarjeta h2 {
+    font-size: 20px;
+
+    margin-bottom: 17px;
+
+    color: #243047;
+}
+
+
+/* ==============================
+   FILTROS DE TAREAS
+   ============================== */
+
+.filtros {
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 16px;
+}
+
+.filtro {
+    border: 1px solid #e3e6ee;
+
+    background: #f8f9fc;
+
+    color: #59657c;
+
+    border-radius: 12px;
+
+    padding: 9px 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.filtro:hover {
+    background: #f1f3f8;
+}
+
+.filtro.activo {
+    background: #eef2ff;
+
+    border-color: #c7d2fe;
+
+    color: #4f46e5;
+}
+
+
+/* ==============================
+   TAREAS
+   ============================== */
+
+.tarea {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px 0;
+
+    border-top: 1px solid #eef0f5;
+}
+
+.tarea:first-child {
+    border-top: none;
+}
+
+.tarea input[type="checkbox"] {
+    width: 21px;
+    height: 21px;
+
+    accent-color: #6366f1;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+}
+
+.tarea-info {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.tarea-info strong {
+    display: block;
+
+    font-size: 15px;
+
+    margin-bottom: 4px;
+
+    color: #243047;
+}
+
+.tarea-info span {
+    font-size: 13px;
+
+    color: #7a8498;
+}
+
+
+/* ==============================
+   PRIORIDAD
+   ============================== */
+
+.prioridad {
+    font-size: 12px;
+
+    font-weight: 800;
+
+    padding: 6px 9px;
+
+    border-radius: 10px;
+
+    background: #fff1f2;
+
+    color: #be123c;
+
+    white-space: nowrap;
+}
+
+
+/* ==============================
+   BOTÓN PRINCIPAL
+   ============================== */
+
+.btn-principal {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 13px 16px;
+
+    background: #6366f1;
+
+    color: #ffffff;
+
+    font-weight: 800;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    margin-top: 15px;
+}
+
+.btn-principal:hover {
+    background: #5558df;
+
+    transform: translateY(-1px);
+}
+
+
+/* ==============================
+   FORMULARIO DE TAREA
+   ============================== */
+
+.formulario-tarea {
+    margin-top: 18px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #eef0f5;
+}
+
+.formulario-tarea label {
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+
+    color: #4b5563;
+}
+
+.formulario-tarea input,
+.formulario-tarea select {
+    width: 100%;
+
+    border: 1px solid #dfe3eb;
+
+    border-radius: 12px;
+
+    padding: 12px 13px;
+
+    font-size: 15px;
+
+    background: #ffffff;
+
+    color: #243047;
+
+    outline: none;
+
+    margin-bottom: 12px;
+}
+
+.formulario-tarea input:focus,
+.formulario-tarea select:focus {
+    border-color: #818cf8;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+
+/* ==============================
+   MOCHILA
+   ============================== */
+
+.lista-mochila {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.item-mochila {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 0;
+
+    color: #566176;
+
+    font-size: 14px;
+}
+
+.item-mochila input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+
+    accent-color: #6366f1;
+
+    cursor: pointer;
+}
+
+
+/* ==============================
+   ARCHIVOS
+   ============================== */
+
+.archivo {
+    background: #f8fafc;
+
+    border-radius: 15px;
+
+    padding: 14px;
+
+    margin-top: 10px;
+
+    border: 1px solid #edf0f5;
+}
+
+.archivo strong {
+    display: block;
+
+    font-size: 14px;
+
+    color: #374151;
+
+    margin-bottom: 4px;
+
+    word-break: break-word;
+}
+
+.archivo span {
+    font-size: 12px;
+
+    color: #7a8498;
+}
+
+
+/* ==============================
+   SUBIDA DE ARCHIVOS
+   ============================== */
+
+.formulario-upload {
+    margin-top: 14px;
+}
+
+.formulario-upload label {
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #4b5563;
+
+    margin-bottom: 8px;
+}
+
+.formulario-upload input[type="file"] {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px dashed #cfd5e2;
+
+    border-radius: 12px;
+
+    background: #fafbfc;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.formulario-upload p {
+    margin-top: 8px;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: #7a8498;
+}
+
+.resultado-upload {
+    margin-top: 12px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* ==============================
+   MENSAJE MOTIVADOR
+   ============================== */
+
+.mensaje-motivador {
+    margin-top: 20px;
+
+    background: #fef3c7;
+
+    border: 1px solid #fde68a;
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    text-align: center;
+
+    color: #7c5a12;
+
+    font-weight: 750;
+
+    line-height: 1.5;
+}
+
+
+/* ==============================
+   ESTADO SIN TAREAS
+   ============================== */
+
+.sin-tareas {
+    text-align: center;
+
+    padding: 25px 15px;
+
+    color: #7a8498;
+
+    font-size: 14px;
+}
+
+.sin-tareas .emoji {
+    display: block;
+
+    font-size: 35px;
+
+    margin-bottom: 8px;
+}
+
+
+/* ==============================
+   MENSAJES
+   ============================== */
+
+.mensaje {
+    margin-top: 12px;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+.mensaje.exito {
+    background: #ecfdf5;
+
+    color: #047857;
+
+    border: 1px solid #a7f3d0;
+}
+
+.mensaje.error {
+    background: #fff1f2;
+
+    color: #be123c;
+
+    border: 1px solid #fecdd3;
+}
+
+
+/* ==============================
+   LOGIN - MI MOCHILA
+   ============================== */
+
+.login {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 20px;
+}
+
+.login-tarjeta {
+    width: 100%;
+
+    max-width: 430px;
+
+    background: #ffffff;
+
+    padding: 40px;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+.login-logo {
+    font-size: 64px;
+
+    margin-bottom: 10px;
+}
+
+.login-tarjeta h1 {
+    font-size: 32px;
+
+    color: #374151;
+
+    margin-bottom: 10px;
+}
+
+.login-subtitulo {
+    color: #6b7280;
+
+    line-height: 1.6;
+
+    margin-bottom: 30px;
+}
+
+#formLogin,
+#formRegistro,
+#formNuevaContrasena,
+#formRecuperar {
+    display: flex;
+
+    flex-direction: column;
+
+    text-align: left;
+}
+
+#formLogin label,
+#formRegistro label,
+#formNuevaContrasena label,
+#formRecuperar label {
+    font-weight: bold;
+
+    color: #374151;
+
+    margin-bottom: 8px;
+}
+
+#formLogin input,
+#formRegistro input,
+#formNuevaContrasena input,
+#formRecuperar input {
+    width: 100%;
+
+    height: 46px;
+
+    padding: 12px 15px;
+
+    border: 2px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    margin-bottom: 18px;
+
+    outline: none;
+
+    background: #ffffff;
+}
+
+#formLogin input:focus,
+#formRegistro input:focus,
+#formNuevaContrasena input:focus,
+#formRecuperar input:focus {
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 0 0 3px rgba(147, 197, 253, 0.15);
+}
+
+
+/* ==============================
+   BOTONES DE ACCESO
+   ============================== */
+
+#formLogin button,
+#formRegistro button,
+#formNuevaContrasena button,
+#formRecuperar button {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    background: #60a5fa;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-top: 8px;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+#formLogin button:hover,
+#formRegistro button:hover,
+#formNuevaContrasena button:hover,
+#formRecuperar button:hover {
+    transform: translateY(-2px);
+
+    opacity: 0.9;
+}
+
+
+/* ==============================
+   ENLACES LOGIN
+   ============================== */
+
+.login-enlace {
+    margin-top: 20px;
+}
+
+.login-enlace a {
+    color: #3b82f6;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+.login-enlace a:hover {
+    text-decoration: underline;
+}
+
+.login-separador {
+    margin: 25px 0 18px;
+
+    color: #9ca3af;
+
+    font-size: 14px;
+}
+
+.btn-crear-cuenta {
+    display: block;
+
+    padding: 13px;
+
+    border: 2px solid #93c5fd;
+
+    border-radius: 12px;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition:
+        background 0.2s ease;
+}
+
+.btn-crear-cuenta:hover {
+    background: #eff6ff;
+}
+
+
+/* ==============================
+   RESULTADOS DE LOGIN
+   ============================== */
+
+#resultadoLogin,
+#resultadoRegistro,
+#resultadoNuevaContrasena,
+#resultadoRecuperar {
+    margin-top: 15px;
+}
+
+#resultadoLogin p,
+#resultadoRegistro p,
+#resultadoNuevaContrasena p,
+#resultadoRecuperar p {
+    padding: 10px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
+
+
+/* ==============================
+   REGLAS DE CONTRASEÑA
+   ============================== */
+
+.texto-contrasena {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+.reglas-contrasena {
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0 0 20px 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+.reglas-contrasena li::before {
+    content: "• ";
+
+    color: #93c5fd;
+
+    font-weight: bold;
+}
+
+
+/* ==============================
+   RESULTADO ERROR REGISTRO
+   ============================== */
+
+.resultado-error {
+    background: #fff7ed;
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    color: #9a3412;
+
+    font-size: 14px;
+}
+
+.resultado-error p {
+    padding: 0 !important;
+
+    margin-bottom: 6px;
+}
+
+.resultado-error ul {
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+
+    line-height: 1.7;
+}
+
+.registro-exito {
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+
+/* ==============================
+   TABLAS ANTIGUAS
+   ============================== */
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 700px;
+}
+
+thead {
+    background: #1f2937;
+
+    color: #ffffff;
+}
+
+th {
+    padding: 16px;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 16px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    font-size: 15px;
+
+    vertical-align: top;
+}
+
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.usuario {
+    font-weight: bold;
+
+    color: #111827;
+}
+
+.email {
+    color: #6b7280;
+}
+
+.con-historial {
+    display: inline-block;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.sin-historial {
+    display: inline-block;
+
+    background: #f3f4f6;
+
+    color: #6b7280;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+}
+
+.fecha {
+    display: block;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+
+    margin-top: 6px;
+}
+
+
+/* ==============================
+   TABLET
+   ============================== */
+
+@media (max-width: 800px) {
+
+    body {
+        padding: 25px 15px;
+    }
+
+    .contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .encabezado {
+        align-items: flex-start;
+
+        flex-direction: row;  
+      }
+
+    
+
+
+/* ==============================
+   CELULAR
+   ============================== */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 18px 10px;
+    }
+
+    .encabezado {
+        padding: 20px;
+
+        border-radius: 22px;
+    }
+
+    .icono-mochila {
+        width: 58px;
+        height: 58px;
+
+        font-size: 30px;
+    }
+
+    .encabezado h1 {
+        font-size: 27px;
+    }
+
+    .saludo {
+        font-size: 19px;
+    }
+
+    .tarjeta {
+        padding: 17px;
+
+        border-radius: 18px;
+    }
+
+    .tarea {
+        align-items: flex-start;
+    }
+
+    .prioridad {
+        font-size: 11px;
+
+        padding: 5px 7px;
+    }
+
+    .login {
+        padding: 20px 15px;
+    }
+
+    .login-tarjeta {
+        padding: 30px 20px;
+
+        border-radius: 20px;
+    }
+
+    .login-logo {
+        font-size: 54px;
+    }
+
+    .login-tarjeta h1 {
+        font-size: 27px;
+    }
+
+    #formLogin input,
+    #formRegistro input,
+    #formNuevaContrasena input,
+    #formRecuperar input {
+        height: 44px;
+
+        font-size: 14px;
+    }
+
+    #formLogin button,
+    #formRegistro button,
+    #formNuevaContrasena button,
+    #formRecuperar button {
+        font-size: 15px;
+    }
+
+    .reglas-contrasena {
+        font-size: 12px;
+    }
+
+    table {
+        min-width: 650px;
+    }
+
+    th {
+        font-size: 11px;
+
+        padding: 10px;
+    }
+
+    td {
+        font-size: 13px;
+
+        padding: 10px;
+    }
+}
+
+
+body:has(.contenedor) .encabezado {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 16px;
+    align-items: stretch;
+    background: transparent;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+
+body:has(.contenedor) .marca {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 22px;
+    padding: 20px 24px;
+    box-shadow: 0 8px 22px rgba(90, 70, 100, 0.10);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* TÍTULO */
+
+body:has(.contenedor) .marca h1 {
+    margin: 0;
+    color: #5f5268;
+    font-size: 28px;
+}
+
+/* 🎒 */
+
+body:has(.contenedor) .icono-mochila {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8dff0;
+    border-radius: 16px;
+    font-size: 27px;
+    flex-shrink: 0;
+}
+
+/* BLOQUE DEL TEXTO */
+
+body:has(.contenedor) .marca > div:last-child {
+    background: rgba(255, 248, 252, 0.95);
+    border-radius: 16px;
+    padding: 12px 16px;
+}
+
+/* SUBTÍTULO */
+
+body:has(.contenedor) .marca p {
+    margin: 0;
+    color: #817485;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    body:has(.contenedor) .encabezado {
+        grid-template-columns: 1fr;
+    }
+
+    body:has(.contenedor) .marca {
+        padding: 18px;
+    }
+
+
+}
+
+body:has(.contenedor) .encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 24px;
+
+    padding: 20px 24px;
+    margin-bottom: 20px;
+
+    box-shadow: 0 8px 24px rgba(90, 70, 100, 0.10);
+}
+
+
+/* GRUPO IZQUIERDO */
+
+body:has(.contenedor) .marca {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+/* ICONO DE LA MOCHILA */
+
+body:has(.contenedor) .icono-mochila {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f8dff0;
+    border-radius: 18px;
+
+    font-size: 32px;
+
+    flex-shrink: 0;
+}
+
+.btn-salir {
+    align-self: flex-end;
+}
+
+/* ==============================
+   BOTÓN SALIR - MI MOCHILA
+   ============================== */
+
+.contenedor #btnCerrarSesion {
+    background: #fff7fa;
+    color: #8f5f70;
+    border: 1px solid #efd9e1;
+    border-radius: 18px;
+
+    padding: 11px 18px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 6px 16px rgba(143, 95, 112, 0.10);
+
+    transition: all 0.2s ease;
+}
+
+.contenedor #btnCerrarSesion:hover {
+    background: #fdeef3;
+    border-color: #e6c4d0;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 9px 20px rgba(143, 95, 112, 0.15);
+}
+ /* ==============================
+    MIS TAREAS - MI MOCHILA
+    ============================== */
+
+.contenedor #formTarea {
+    margin-top: 18px;
+}
+
+.contenedor #formTarea label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+
+    color: #6f6472;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.contenedor #formTarea input,
+.contenedor #formTarea select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #eadfe5;
+    border-radius: 14px;
+
+    background: #fffafd;
+    color: #514853;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.contenedor #formTarea input:focus,
+.contenedor #formTarea select:focus {
+    background: #ffffff;
+    border-color: #d9b9c8;
+
+    box-shadow: 0 0 0 4px rgba(217, 185, 200, 0.16);
+}
+
+.contenedor #formTarea input::placeholder {
+    color: #aaa0aa;
+}
+
+/* BOTÓN AGREGAR TAREA */
+
+.contenedor #formTarea button {
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 13px 18px;
+
+    border: none;
+    border-radius: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #dcaec0,
+        #c9b4d9
+    );
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 7px 16px rgba(140, 105, 145, 0.15);
+
+    transition: all 0.2s ease;
+}
+
+.contenedor #formTarea button:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 20px rgba(140, 105, 145, 0.20);
+}

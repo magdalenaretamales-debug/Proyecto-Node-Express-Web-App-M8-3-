@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Mi Mochila 🎒</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+</head>
+
+<body>
+
+
+<main class="contenedor">
+
+    <!-- ENCABEZADO -->
+
+    <header class="encabezado">
+
+        <div>
+
+            <h1>
+                🎒 Mi Mochila
+            </h1>
+
+            <p>
+                Organiza tus tareas y prepárate para el colegio ✨
+            </p>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="btnCerrarSesion"
+        >
+            🚪 Salir
+        </button>
+
+    </header>
+
+
+    <!-- SALUDO -->
+
+    <section class="tarjeta bienvenida">
+
+        <h2 id="saludoUsuario">
+            👋 ¡Hola!
+        </h2>
+
+        <p>
+            Qué bueno verte 😊
+            <br>
+            Aquí puedes organizar tus tareas y prepararte con tiempo.
+        </p>
+
+    </section>
+
+
+    <!-- MIS TAREAS -->
+
+    <section class="tarjeta">
+
+        <h2>
+            📚 Mis tareas
+        </h2>
+
+        <p>
+            ¿Qué tienes que hacer?
+        </p>
+
+
+        <form id="formTarea">
+
+            <label for="tarea">
+                ✏️ Tarea
+            </label>
+
+            <input
+                type="text"
+                id="tarea"
+                placeholder="Ej: Resolver ejercicios de Matemática"
+                required
+            >
+
+
+            <label for="fechaTarea">
+                📅 ¿Para cuándo?
+            </label>
+
+            <input
+                type="date"
+                id="fechaTarea"
+                required
+            >
+
+
+            <label for="prioridad">
+                ⭐ ¿Qué tan importante es?
+            </label>
+
+            <select
+                id="prioridad"
+                required
+            >
+
+                <option value="">
+                    Selecciona una opción
+                </option>
+
+                <option value="alta">
+                    🔴 Muy importante
+                </option>
+
+                <option value="media">
+                    🟡 Importante
+                </option>
+
+                <option value="baja">
+                    🟢 Puede esperar
+                </option>
+
+            </select>
+
+
+            <button type="submit">
+                ➕ Agregar tarea
+            </button>
+
+        </form>
+
+
+        <div id="resultadoTarea"></div>
+
+    </section>
+
+
+    <!-- ORGANIZAR -->
+
+    <section class="tarjeta">
+
+        <h2>
+            📅 Organiza tu semana
+        </h2>
+
+        <p>
+            Elige qué quieres revisar.
+        </p>
+
+
+        <div class="filtros-tareas">
+
+            <button
+                type="button"
+                id="btnHoy"
+            >
+                🌟 Hoy
+            </button>
+
+
+            <button
+                type="button"
+                id="btnSemana"
+            >
+                📚 Esta semana
+            </button>
+
+
+            <button
+                type="button"
+                id="btnCompletadas"
+            >
+                ✅ Completadas
+            </button>
+
+        </div>
+
+    </section>
+
+
+    
+
+    <!-- MI MOCHILA -->
+
+    <section class="tarjeta">
+
+        <h2>
+            🎒 ¿Qué necesito llevar?
+        </h2>
+
+        <p>
+            Prepara tus cosas con tiempo para no olvidar nada.
+        </p>
+
+
+        <div class="lista-mochila">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                >
+
+                📘 Cuaderno de Matemática
+
+            </label>
+
+
+            <label>
+
+                <input
+                    type="checkbox"
+                >
+
+                📖 Libro de Lenguaje
+
+            </label>
+
+
+            <label>
+
+                <input
+                    type="checkbox"
+                >
+
+                📐 Regla
+
+            </label>
+
+
+            <label>
+
+                <input
+                    type="checkbox"
+                >
+
+                🎨 Materiales de Arte
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+    <!-- ARCHIVOS -->
+
+    <section class="tarjeta">
+
+        <h2>
+            📎 Mis archivos
+        </h2>
+
+        <p>
+            Guarda una guía, tarea o imagen que necesites
+            para el colegio.
+        </p>
+
+
+        <form id="formUpload">
+
+            <label for="archivo">
+                📁 Elige un archivo
+            </label>
+
+
+            <input
+                type="file"
+                id="archivo"
+                accept=".jpg,.jpeg,.png,.pdf"
+                required
+            >
+
+
+            <p>
+                Puedes subir JPG, JPEG, PNG o PDF.
+                <br>
+                Tamaño máximo: 5 MB.
+            </p>
+
+
+            <button type="submit">
+                📤 Subir archivo
+            </button>
+
+        </form>
+
+
+        <div id="resultadoUpload"></div>
+
+    </section>
+
+
+    <!-- MENSAJE FINAL -->
+
+    <section class="tarjeta mensaje-final">
+
+        <h2>
+            🌟 ¡Tú puedes!
+        </h2>
+
+        <p>
+            Organizar tus tareas te ayuda a trabajar
+            con más tranquilidad y tener tiempo para descansar.
+        </p>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+    // ==========================================
+    // COMPROBAR SESIÓN
+    // ==========================================
+
+    const token =
+        localStorage.getItem("token");
+
+    const usuarioGuardado =
+        localStorage.getItem("usuario");
+
+
+    if (!token || !usuarioGuardado) {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    // ==========================================
+    // MOSTRAR NOMBRE DEL USUARIO
+    // ==========================================
+
+    if (usuarioGuardado) {
+
+        const usuario =
+            JSON.parse(usuarioGuardado);
+
+        const saludo =
+            document.getElementById(
+                "saludoUsuario"
+            );
+
+        saludo.textContent =
+            `👋 ¡Hola, ${usuario.nombre}!`;
+
+    }
+
+
+    // ==========================================
+    // CERRAR SESIÓN
+    // ==========================================
+
+    document
+        .getElementById("btnCerrarSesion")
+        .addEventListener(
+            "click",
+            function () {
+
+                localStorage.removeItem("token");
+
+                localStorage.removeItem("usuario");
+
+                window.location.href =
+                    "login.html";
+
+            }
+        );
+
+
+    // ==========================================
+    // AGREGAR TAREA
+    // ==========================================
+
+    document
+        .getElementById("formTarea")
+        .addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const tarea =
+                    document
+                        .getElementById("tarea")
+                        .value
+                        .trim();
+
+
+                const fecha =
+                    document
+                        .getElementById("fechaTarea")
+                        .value;
+
+
+                const prioridad =
+                    document
+                        .getElementById("prioridad")
+                        .value;
+
+
+                const resultado =
+                    document.getElementById(
+                        "resultadoTarea"
+                    );
+
+
+                if (
+                    !tarea ||
+                    !fecha ||
+                    !prioridad
+                ) {
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ Completa todos los campos.
+                        </p>
+                    `;
+
+                    return;
+
+                }
+
+
+                resultado.innerHTML = `
+                    <p>
+                        🌟 ¡Muy bien! Agregaste una nueva tarea.
+                    </p>
+                `;
+
+
+                event.target.reset();
+
+            }
+        );
+
+
+    // ==========================================
+    // FILTRO: HOY
+    // ==========================================
+
+    document
+        .getElementById("btnHoy")
+        .addEventListener(
+            "click",
+            function () {
+
+                document
+                    .getElementById("mensajeTareas")
+                    .textContent =
+                    "Estas son las tareas que debes realizar hoy.";
+
+            }
+        );
+
+
+    // ==========================================
+    // FILTRO: ESTA SEMANA
+    // ==========================================
+
+    document
+        .getElementById("btnSemana")
+        .addEventListener(
+            "click",
+            function () {
+
+                document
+                    .getElementById("mensajeTareas")
+                    .textContent =
+                    "Estas son tus tareas para esta semana.";
+
+            }
+        );
+
+
+    // ==========================================
+    // FILTRO: COMPLETADAS
+    // ==========================================
+
+    document
+        .getElementById("btnCompletadas")
+        .addEventListener(
+            "click",
+            function () {
+
+                document
+                    .getElementById("mensajeTareas")
+                    .textContent =
+                    "Aquí podrás revisar las tareas que ya terminaste.";
+
+            }
+        );
+
+
+    // ==========================================
+    // SUBIR ARCHIVO
+    // ==========================================
+
+    document
+        .getElementById("formUpload")
+        .addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const archivo =
+                    document
+                        .getElementById("archivo")
+                        .files[0];
+
+
+                const resultado =
+                    document.getElementById(
+                        "resultadoUpload"
+                    );
+
+
+                // ==========================================
+                // COMPROBAR QUE EXISTE ARCHIVO
+                // ==========================================
+
+                if (!archivo) {
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ Selecciona un archivo.
+                        </p>
+                    `;
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // COMPROBAR TAMAÑO
+                // ==========================================
+
+                const maximo =
+                    5 * 1024 * 1024;
+
+
+                if (archivo.size > maximo) {
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ El archivo supera el tamaño máximo de 5 MB.
+                        </p>
+                    `;
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // COMPROBAR TIPO
+                // ==========================================
+
+                const tiposPermitidos = [
+                    "image/jpeg",
+                    "image/png",
+                    "application/pdf"
+                ];
+
+
+                if (
+                    !tiposPermitidos.includes(
+                        archivo.type
+                    )
+                ) {
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ Tipo de archivo no permitido.
+                            <br>
+                            Solo puedes subir JPG, JPEG, PNG o PDF.
+                        </p>
+                    `;
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // PREPARAR ARCHIVO
+                // ==========================================
+
+                const formulario =
+                    new FormData();
+
+
+                formulario.append(
+                    "archivo",
+                    archivo
+                );
+
+
+                // ==========================================
+                // ENVIAR AL SERVIDOR
+                // ==========================================
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/upload",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    Authorization:
+                                        `Bearer ${token}`
+                                },
+
+                                body: formulario
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (response.ok) {
+
+                        resultado.innerHTML = `
+                            <p>
+                                ✅ ¡Archivo subido correctamente!
+                            </p>
+                        `;
+
+
+                        event.target.reset();
+
+                    } else {
+
+                        resultado.innerHTML = `
+                            <p>
+                                ❌ ${
+                                    data.message ||
+                                    "No se pudo subir el archivo."
+                                }
+                            </p>
+                        `;
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ No se pudo conectar con el servidor.
+                        </p>
+                    `;
+
+                }
+
+            }
+        );
+
+</script>
+
+
+</body>
+
+</html>

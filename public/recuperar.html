@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Mi Mochila | Recuperar contraseña</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+
+</head>
+
+<body>
+
+
+<main class="login">
+
+    <section class="login-tarjeta">
+
+        <div class="login-logo">
+            🎒
+        </div>
+
+        <h1>
+            Recuperar contraseña
+        </h1>
+
+        <p class="login-subtitulo">
+            ¿Olvidaste tu contraseña? 😊
+            <br>
+            Escribe tu correo y te enviaremos un código.
+        </p>
+
+        <form id="formRecuperar">
+
+            <label for="recuperarEmail">
+                📧 Correo electrónico
+            </label>
+
+            <input
+                type="email"
+                id="recuperarEmail"
+                placeholder="Escribe tu correo"
+                required
+            >
+
+            <button type="submit">
+                📩 Enviar código
+            </button>
+
+        </form>
+
+        <div id="resultadoRecuperar"></div>
+
+        <p class="login-enlace">
+            <a href="login.html">
+                ← Volver al inicio de sesión
+            </a>
+        </p>
+
+    </section>
+
+</main>
+
+<script>
+
+    document
+        .getElementById("formRecuperar")
+        .addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+                const email =
+                    document
+                        .getElementById("recuperarEmail")
+                        .value
+                        .trim();
+
+                const resultado =
+                    document.getElementById(
+                        "resultadoRecuperar"
+                    );
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/recuperar",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        email: email
+                                    })
+                            }
+                        );
+
+                    const data =
+                        await response.json();
+
+                    if (response.ok) {
+
+                        localStorage.setItem(
+                            "recuperacionEmail",
+                            email
+                        );
+
+                        resultado.innerHTML = `
+                            <p class="registro-exito">
+                                📩 ${data.message}
+                                <br>
+                                Revisa tu correo electrónico.
+                            </p>
+                        `;
+
+                        setTimeout(() => {
+
+                            window.location.href =
+                                "nueva-contrasena.html";
+
+                        }, 1500);
+
+                    } else {
+
+                        resultado.innerHTML = `
+                            <p>
+                                ❌ ${data.message}
+                            </p>
+                        `;
+
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ No se pudo conectar con el servidor.
+                        </p>
+                    `;
+
+                }
+
+            }
+        );
+
+</script>
+
+
+</body>
+
+</html>

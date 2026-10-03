@@ -1,0 +1,223 @@
+
+const express = require('express');
+const fileUpload = require('express-fileupload');
+const path = require('path');
+const fs = require('fs');
+
+const app = express();
+const PORT = 3000;
+
+// Middlewares
+app.use(express.json());
+app.use(fileUpload());
+
+app.use(express.static('public'));
+
+// ==========================
+// SUBIR ARCHIVO
+// ==========================
+app.post('/upload', (req, res) => {
+// 1. Verificar existencia del archivo
+if (!req.files || !req.files.archivo) {
+return res.status(400).json({
+status: 'error',
+message: 'No se recibió ningún archivo'
+});
+}
+
+const archivo = req.files.archivo;
+
+// 2. Obtener extensión
+const extension = path.extname(archivo.name).toLowerCase();
+
+// 3. Extensiones permitidas
+const extensionesPermitidas = ['.jpg', '.png', '.pdf'];
+
+// 4. Validar extensión
+if (!extensionesPermitidas.includes(extension)) {
+return res.status(422).json({
+status: 'error',
+message: 'Solo se permiten archivos JPG, PNG y PDF'
+});
+}
+
+// 5. Limpiar nombre (reemplazar espacios por guiones bajos)
+const nombreLimpio = archivo.name.replace(/\s+/g, '_');
+
+// 6. Renombrar con marca de tiempo
+const nuevoNombre = `${Date.now()}-${nombreLimpio}`;
+
+// 7. Crear ruta de almacenamiento
+const ruta = path.join(__dirname, 'uploads', nuevoNombre);
+
+// 8. Guardar archivo en la carpeta uploads
+archivo.mv(ruta, (error) => {
+if (error) {
+return res.status(500).json({
+status: 'error',
+message: 'No se pudo guardar el archivo'
+});
+}
+
+// 9. Responder con los atributos del archivo
+res.status(201).json({
+status: 'success',
+message: 'Archivo subido correctamente',
+archivo: {
+nombre: nuevoNombre,
+tipo: archivo.mimetype,
+tamano: archivo.size
+}
+});
+});
+});
+
+// ==========================
+// ELIMINAR ARCHIVO
+// ==========================
+app.delete('/eliminar/:nombre', (req, res) => {
+const nombre = req.params.nombre;
+const ruta = path.join(__dirname, 'uploads', nombre);
+
+// Verificar si el archivo existe en el servidor
+if (!fs.existsSync(ruta)) {
+return res.status(404).json({
+status: 'error',
+message: 'Archivo no encontrado'
+});
+}
+
+// Eliminar el archivo físico
+fs.unlink(ruta, (error) => {
+if (error) {
+return res.status(500).json({
+status: 'error',
+message: 'No se pudo eliminar el archivo'
+});
+}
+
+res.status(200).json({
+status: 'success',
+message: 'Archivo eliminado correctamente'
+});
+});
+});
+
+// ==========================
+// SERVIDOR
+// ==========================
+app.listen(PORT, () => {
+console.log(`Servidor activo en http://localhost:${PORT}`);
+});
+
+
+const express = require('express');
+const fileUpload = require('express-fileupload');
+const path = require('path');
+const fs = require('fs');
+
+const app = express();
+const PORT = 3000;
+
+// Middlewares
+app.use(express.json());
+app.use(fileUpload());
+
+app.use(express.static('public'));
+
+// ==========================
+// SUBIR ARCHIVO
+// ==========================
+app.post('/upload', (req, res) => {
+// 1. Verificar existencia del archivo
+if (!req.files || !req.files.archivo) {
+return res.status(400).json({
+status: 'error',
+message: 'No se recibió ningún archivo'
+});
+}
+
+const archivo = req.files.archivo;
+
+// 2. Obtener extensión
+const extension = path.extname(archivo.name).toLowerCase();
+
+// 3. Extensiones permitidas
+const extensionesPermitidas = ['.jpg', '.png', '.pdf'];
+
+// 4. Validar extensión
+if (!extensionesPermitidas.includes(extension)) {
+return res.status(422).json({
+status: 'error',
+message: 'Solo se permiten archivos JPG, PNG y PDF'
+});
+}
+
+// 5. Limpiar nombre (reemplazar espacios por guiones bajos)
+const nombreLimpio = archivo.name.replace(/\s+/g, '_');
+
+// 6. Renombrar con marca de tiempo
+const nuevoNombre = `${Date.now()}-${nombreLimpio}`;
+
+// 7. Crear ruta de almacenamiento
+const ruta = path.join(__dirname, 'uploads', nuevoNombre);
+
+// 8. Guardar archivo en la carpeta uploads
+archivo.mv(ruta, (error) => {
+if (error) {
+return res.status(500).json({
+status: 'error',
+message: 'No se pudo guardar el archivo'
+});
+}
+
+// 9. Responder con los atributos del archivo
+res.status(201).json({
+status: 'success',
+message: 'Archivo subido correctamente',
+archivo: {
+nombre: nuevoNombre,
+tipo: archivo.mimetype,
+tamano: archivo.size
+}
+});
+});
+});
+
+// ==========================
+// ELIMINAR ARCHIVO
+// ==========================
+app.delete('/eliminar/:nombre', (req, res) => {
+const nombre = req.params.nombre;
+const ruta = path.join(__dirname, 'uploads', nombre);
+
+// Verificar si el archivo existe en el servidor
+if (!fs.existsSync(ruta)) {
+return res.status(404).json({
+status: 'error',
+message: 'Archivo no encontrado'
+});
+}
+
+// Eliminar el archivo físico
+fs.unlink(ruta, (error) => {
+if (error) {
+return res.status(500).json({
+status: 'error',
+message: 'No se pudo eliminar el archivo'
+});
+}
+
+res.status(200).json({
+status: 'success',
+message: 'Archivo eliminado correctamente'
+});
+});
+});
+
+// ==========================
+// SERVIDOR
+// ==========================
+app.listen(PORT, () => {
+console.log(`Servidor activo en http://localhost:${PORT}`);
+});

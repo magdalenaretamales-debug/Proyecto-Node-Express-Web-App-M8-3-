@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Mi Mochila | Nueva contraseña</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+
+</head>
+
+<body>
+
+
+<main class="login">
+
+    <section class="login-tarjeta">
+
+        <div class="login-logo">
+            🎒
+        </div>
+
+        <h1>
+            Nueva contraseña
+        </h1>
+
+        <p class="login-subtitulo">
+            ¡Ya casi terminamos! 🌟
+            <br>
+            Ingresa el código que recibiste y crea tu nueva contraseña.
+        </p>
+
+        <form id="formNuevaContrasena">
+
+            <label for="codigo">
+                🔢 Código de recuperación
+            </label>
+
+            <input
+                type="text"
+                id="codigo"
+                placeholder="Escribe el código de 6 dígitos"
+                maxlength="6"
+                required
+            >
+
+            <label for="nuevaPassword">
+                🔑 Nueva contraseña
+            </label>
+
+            <input
+                type="password"
+                id="nuevaPassword"
+                placeholder="Crea tu nueva contraseña"
+                required
+            >
+
+            <p class="texto-contrasena">
+                Tu contraseña debe tener:
+            </p>
+
+            <ul class="reglas-contrasena">
+
+                <li>Mínimo 8 caracteres</li>
+                <li>Una letra mayúscula</li>
+                <li>Una letra minúscula</li>
+                <li>Un número</li>
+                <li>Un carácter especial</li>
+
+            </ul>
+
+            <label for="confirmarPassword">
+                🔐 Repite tu contraseña
+            </label>
+
+            <input
+                type="password"
+                id="confirmarPassword"
+                placeholder="Repite tu nueva contraseña"
+                required
+            >
+
+            <button type="submit">
+                ✨ Cambiar contraseña
+            </button>
+
+        </form>
+
+        <div id="resultadoNuevaContrasena"></div>
+
+        <p class="login-enlace">
+            <a href="login.html">
+                ← Volver al inicio de sesión
+            </a>
+        </p>
+
+    </section>
+
+</main>
+
+<script>
+
+    document
+        .getElementById("formNuevaContrasena")
+        .addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+                const email =
+                    localStorage.getItem(
+                        "recuperacionEmail"
+                    );
+
+                const codigo =
+                    document
+                        .getElementById("codigo")
+                        .value
+                        .trim();
+
+                const nuevaPassword =
+                    document
+                        .getElementById("nuevaPassword")
+                        .value;
+
+                const confirmarPassword =
+                    document
+                        .getElementById("confirmarPassword")
+                        .value;
+
+                const resultado =
+                    document.getElementById(
+                        "resultadoNuevaContrasena"
+                    );
+
+
+                if (!email) {
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ No se encontró el correo de recuperación.
+                        </p>
+                    `;
+
+                    return;
+                }
+
+
+                if (
+                    nuevaPassword !==
+                    confirmarPassword
+                ) {
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ Las contraseñas no coinciden.
+                        </p>
+                    `;
+
+                    return;
+                }
+
+
+                const tiene8Caracteres =
+                    nuevaPassword.length >= 8;
+
+                const tieneMayuscula =
+                    /[A-Z]/.test(nuevaPassword);
+
+                const tieneMinuscula =
+                    /[a-z]/.test(nuevaPassword);
+
+                const tieneNumero =
+                    /[0-9]/.test(nuevaPassword);
+
+                const tieneEspecial =
+                    /[^A-Za-z0-9]/.test(nuevaPassword);
+
+
+                if (
+                    !tiene8Caracteres ||
+                    !tieneMayuscula ||
+                    !tieneMinuscula ||
+                    !tieneNumero ||
+                    !tieneEspecial
+                ) {
+
+                    resultado.innerHTML = `
+                        <div class="resultado-error">
+
+                            <p>
+                                ❌ Tu contraseña todavía necesita algunos requisitos:
+                            </p>
+
+                            <ul>
+
+                                <li>
+                                    ${tiene8Caracteres ? "✅" : "❌"}
+                                    Mínimo 8 caracteres
+                                </li>
+
+                                <li>
+                                    ${tieneMayuscula ? "✅" : "❌"}
+                                    Una letra mayúscula
+                                </li>
+
+                                <li>
+                                    ${tieneMinuscula ? "✅" : "❌"}
+                                    Una letra minúscula
+                                </li>
+
+                                <li>
+                                    ${tieneNumero ? "✅" : "❌"}
+                                    Un número
+                                </li>
+
+                                <li>
+                                    ${tieneEspecial ? "✅" : "❌"}
+                                    Un carácter especial
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    `;
+
+                    return;
+                }
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/cambiar-contrasena",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        email: email,
+                                        codigo: codigo,
+                                        nuevaPassword: nuevaPassword
+                                    })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (response.ok) {
+
+                        resultado.innerHTML = `
+                            <p class="registro-exito">
+                                🎉 ${data.message}
+                                <br>
+                                Redirigiendo al inicio de sesión...
+                            </p>
+                        `;
+
+                        localStorage.removeItem(
+                            "recuperacionEmail"
+                        );
+
+                        setTimeout(() => {
+
+                            window.location.href =
+                                "login.html";
+
+                        }, 1500);
+
+                    } else {
+
+                        resultado.innerHTML = `
+                            <p>
+                                ❌ ${data.message}
+                            </p>
+                        `;
+
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    resultado.innerHTML = `
+                        <p>
+                            ❌ No se pudo conectar con el servidor.
+                        </p>
+                    `;
+
+                }
+
+            }
+        );
+
+</script>
+
+
+</body>
+
+</html>
